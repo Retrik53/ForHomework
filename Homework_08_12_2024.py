@@ -42,11 +42,9 @@ print(teacher.remove_mark("Петр Сидоров", 4))
 print(teacher.give_a_consultation("11А"))
 print(f"Задача 1^\n===========================\nЗадача 2")
 
-class DisciplineTeacher:
+class DisciplineTeacher(Teacher):
     def __init__(self, name, education, experience, discipline, job_title):
-        self.name = name
-        self.education = education
-        self.experience = experience
+        super().__init__(name, education, experience)
         self.discipline = discipline
         self.job_title = job_title
 
@@ -84,6 +82,7 @@ Education = input("Введите в каком заведении вы обуч
 Experience = int(input("Введите ваш опыт работы в годах:"))
 Discipline = input("Введите какой предмет вы ведете:")
 Job_Title = input("Введите вашу должность:")
+
 discipline_teacher = DisciplineTeacher(
     name=Name,
     education=Education,
