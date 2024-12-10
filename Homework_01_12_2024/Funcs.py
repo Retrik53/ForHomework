@@ -1,52 +1,21 @@
 import json
-words_easy = {
-    "family": "семья",
-    "hand": "рука",
-    "people": "люди",
-    "evening": "вечер",
-    "minute": "минута",
-}
 
-words_medium = {
-    "believe": "верить",
-    "feel": "чувствовать",
-    "make": "делать",
-    "open": "открывать",
-    "think": "думать",
-}
 
-words_hard = {
-    "rural": "деревенский",
-    "fortune": "удача",
-    "exercise": "упражнение",
-    "suggest": "предлагать",
-    "except": "кроме",
-}
-
-levels = {
-    0: "Нулевой",
-    1: "Так себе",
-    2: "Можно лучше",
-    3: "Норм",
-    4: "Хорошо",
-    5: "Отлично"
-}
-
-def get_user_level():
-    user_input = input("Выберите уровень сложности \nлегкий, средний, сложный.\n").lower().strip()
+def get_user_level(data):
+    user_input = input("Выберите уровень сложности (легкий, средний, сложный):\n").lower().strip()
 
     if user_input == 'легкий':
         print("Выбрана сложность - легкий.")
-        return words_easy
+        return data['easy']
     elif user_input == 'средний':
         print("Выбрана сложность - средний.")
-        return words_medium
+        return data['medium']
     elif user_input == 'сложный':
         print("Выбрана сложность - сложный.")
-        return words_hard
+        return data['hard']
     else:
         print("Ошибка ввода, выбрана сложность по умолчанию - легкий.")
-        return words_easy
+        return data['easy']
 
 
 def base_program(test_words):
@@ -71,7 +40,7 @@ def base_program(test_words):
 def get_result(answers, levels):
     correct_count = sum(value for value in answers.values())
 
-    result = levels[min(correct_count, max(levels.keys()))]
+    result = levels[str(min(correct_count, len(levels)))]
 
     print("\nПравильно отвечены слова:")
     for word, is_correct in answers.items():
