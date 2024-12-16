@@ -1,20 +1,17 @@
+# Класс питания
 class PowerSupply:
-    def __init__(self, power):
-        self.power = power
-
     def supply_power(self):
-        print(f"Подаем {self.power} Вт.")
+        print("Питание подключено.")
 
 
+# Класс материнской платы
 class Motherboard:
-    def __init__(self, chipset):
-        self.chipset = chipset
-
     def distribute_power(self):
-        print("Распределяем напряжение по компонентам.")
+        print("Напряжение перераспределено.")
 
 
-class CPU:
+# Класс центрального процессора (CPU)
+class CPU(PowerSupply, Motherboard):  # Множественное наследование
     def __init__(self, frequency, cores):
         self.frequency = frequency
         self.cores = cores
@@ -23,7 +20,8 @@ class CPU:
         print("Активируем ускоренный режим.")
 
 
-class RAM:
+# Класс оперативной памяти (RAM)
+class RAM(Motherboard):  # Множественное наследование
     def __init__(self, memory_size, memory_frequency):
         self.memory_size = memory_size
         self.memory_frequency = memory_frequency
@@ -35,7 +33,8 @@ class RAM:
         print("Выгружаем данные из оперативной памяти.")
 
 
-class SSD:
+# Класс твердотельного накопителя (SSD)
+class SSD(Motherboard):  # Множественное наследование
     def __init__(self, storage_capacity):
         self.storage_capacity = storage_capacity
 
@@ -46,7 +45,8 @@ class SSD:
         print("Удаляем данные с SSD.")
 
 
-class GPU:
+# Класс графического процессора (GPU)
+class GPU(Motherboard):  # Множественное наследование
     def __init__(self, model, video_memory):
         self.model = model
         self.video_memory = video_memory
@@ -55,7 +55,8 @@ class GPU:
         print("Выводим изображение на экран.")
 
 
-class Computer:
+# Класс компьютера
+class Computer(CPU, RAM, SSD, GPU):  # Множественное наследование
     def __init__(
             self,
             power_supply: PowerSupply,
@@ -91,13 +92,17 @@ class Computer:
         # Выводим изображение на экран
         self.gpu.display_image()
 
-power_supply = PowerSupply(500)
-motherboard = Motherboard('Z690')
+
+# Создаем объекты компонентов
+power_supply = PowerSupply()
+motherboard = Motherboard()
 cpu = CPU(4.0, 8)
 ram = RAM(16, 3200)
 ssd = SSD(512)
 gpu = GPU('RTX 3080', 10)
 
+# Создаем объект компьютера
 computer = Computer(power_supply, motherboard, cpu, ram, ssd, gpu)
 
+# Запускаем компьютер
 computer.start()
