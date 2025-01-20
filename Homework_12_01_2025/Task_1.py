@@ -1,5 +1,4 @@
-import json
-
+import pickle
 
 class CountriesCapitals:
     def __init__(self):
@@ -37,15 +36,15 @@ class CountriesCapitals:
         for country, capital in self.data.items():
             print(f"{country}: {capital}")
 
-    def save_data(self, filename="data.json"):
-        with open(filename, "w", encoding='utf-8') as file:
-            json.dump(self.data, file, ensure_ascii=False)
+    def save_data(self, filename="data.pkl"):
+        with open(filename, "wb") as file:
+            pickle.dump(self.data, file)
         print("Данные успешно сохранены.")
 
-    def load_data(self, filename="data.json"):
+    def load_data(self, filename="data.pkl"):
         try:
-            with open(filename, "r", encoding='utf-8') as file:
-                self.data = json.load(file)
+            with open(filename, "rb") as file:
+                self.data = pickle.load(file)
             print("Данные успешно загружены.")
         except FileNotFoundError:
             print(f"Файл {filename} не найден.")

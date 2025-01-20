@@ -1,11 +1,10 @@
-import json
-
+import pickle
 
 def load_data(file_path):
     """Загрузка данных из файла."""
     try:
-        with open(file_path, 'r', encoding='utf-8') as file:
-            data = json.load(file)
+        with open(file_path, 'rb') as file:
+            data = pickle.load(file)
     except FileNotFoundError:
         # Если файл не найден, создаем пустой словарь
         print("Файл не найден. Создан новый пустой словарь.")
@@ -15,8 +14,8 @@ def load_data(file_path):
 
 def save_data(data, file_path):
     """Сохранение данных в файл."""
-    with open(file_path, 'w', encoding='utf-8') as file:
-        json.dump(data, file, ensure_ascii=False, indent=4)
+    with open(file_path, 'wb') as file:
+        pickle.dump(data, file)
 
 
 def add_artist_album(data, artist, album):
@@ -114,7 +113,7 @@ def handle_editing(data):
 
 
 def main():
-    file_path = "Artists.json"
+    file_path = "Artists.pkl"
     music_data = load_data(file_path)
 
     while True:
